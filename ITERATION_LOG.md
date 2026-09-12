@@ -63,3 +63,11 @@ Evaluation-Driven Development log for the repo-sync prompt (`prompts/repo-sync.m
   - SWE-2 High: 4/4 (unchanged — still perfect).
   - Claude Haiku 4.5: **4/4**, up from 1/4. All three prior failures now answer from the described state: correct `git clone` for the missing repo, pull for the stale repo, stash-pull-restore for the dirty tree.
 - **Reasoning:** Hypothesis fully confirmed — Haiku's failures were caused by real-environment access, not prompt ambiguity. Removing the real repo from its cwd eliminated the entire failure class with zero prompt changes. This is a harness/hygiene fix; it proves the eval was previously measuring "does the model inspect its environment" rather than "does it follow the scenario."
+
+## Iteration 6: Add "Local state is authoritative" instruction (prompt fix)
+
+- **Baseline:** 8/8 (100%) after the Iteration 5 sandbox fix.
+- **Hypothesis:** An explicit prompt rule — treat `Local state` as authoritative, do not inspect the environment — makes the behavior independent of the harness sandbox, so it holds even if the provider ever runs in a directory containing a real repo. Should keep the eval at 100% and not regress anything.
+- **Change made:** Added a closing rule to `## Output` in `prompts/repo-sync.md`: "Treat the `Local state` above as authoritative. Do not inspect the environment, run commands, or reason about any repository on the actual filesystem — answer from the described state only." No config or assertion changes.
+- **Measured results:** `npx promptfoo eval --no-cache` (eval-kFc-2026-09-12T21:49:42): **8/8 passed (100%)**, 0 errors — no regressions on either provider.
+- **Reasoning:** Hypothesis confirmed. The rule adds defense-in-depth: behavior now depends on explicit instruction, not only on the sandboxed cwd. Both layers are cheap and complementary — the sandbox guarantees clean signal, the instruction documents the contract inside the prompt artifact itself.

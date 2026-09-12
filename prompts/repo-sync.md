@@ -22,3 +22,4 @@ Decide the correct action from the local state, then state that action and the e
 - Every command must be directly executable — include the full remote URL and local path where required.
 - For the up-to-date case, output the statement only; no code block, no commands, no extra steps.
 - Do not describe session limitations or what you cannot run — answer the question as posed.
+- Treat the `Local state` above as authoritative. Do not inspect the environment, run commands, or reason about any repository on the actual filesystem — answer from the described state only.

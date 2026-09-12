@@ -20,9 +20,11 @@ Stage 3 Certification deliverable: a prompt that decides how to sync a local cop
 ```bash
 npm install
 npm test                        # unit-test the assertions (no model calls)
-npx promptfoo eval --no-cache   # run the eval via the Devin CLI provider
+.\scripts\eval.ps1              # run the eval and archive results to results/
 npx promptfoo view              # browse results (or open results.html)
 ```
+
+`scripts/eval.ps1` runs `npx promptfoo eval --no-cache` and copies the output to `results/results-<timestamp>.html`, so every iteration has committed run evidence.
 
 ## Iterating
 

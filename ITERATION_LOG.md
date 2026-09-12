@@ -2,6 +2,17 @@
 
 Evaluation-Driven Development log for the repo-sync prompt (`prompts/repo-sync.md`), evaluated by `promptfooconfig.yaml` via the Devin CLI exec provider (`devin.js`).
 
+## Summary
+
+| # | Change | Providers | Result |
+|---|--------|-----------|--------|
+| 1 | Build prompt + harness (v1 minimal prompt) | Claude Sonnet 5 | 2/4 (50%) |
+| 2 | Swap provider to SWE-2 High | SWE-2 High | 2/4 (50%) |
+| 3 | Add Claude Haiku 4.5 as second provider | SWE-2 High + Haiku 4.5 | 3/8 (37.5%) |
+| 4 | v2 prompt: explicit actions, executable commands, no-op branch | SWE-2 High + Haiku 4.5 | 5/8 (62.5%) |
+| 5 | Harness fix: sandbox provider cwd (temp dir) | SWE-2 High + Haiku 4.5 | 8/8 (100%) |
+| 6 | Prompt rule: Local state is authoritative | SWE-2 High + Haiku 4.5 | 8/8 (100%) |
+
 ## Iteration 1: Build the prompt and evaluation harness
 
 - **Baseline:** No prompt, no eval harness.

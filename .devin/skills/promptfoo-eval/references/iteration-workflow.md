@@ -13,6 +13,7 @@ Treat prompt improvement like test-driven development: red -> green -> refactor,
 
 ## Rules of thumb
 
+- **The log is part of the change.** An iteration is not complete until `ITERATION_LOG.md` has the entry. Any edit to the prompt, config, providers, or assertions without a log update is an unfinished iteration. A pre-commit hook should enforce this: eval inputs and the log must be staged together.
 - **One change at a time.** If two things change and the score moves, you don't know why.
 - **Fix the harness before the prompt.** Provider errors (non-zero exits, CLI timeouts) are not test failures — resolve them first and note them separately in the log.
 - **Regressions count.** A fix that passes test X but breaks test Y is not an improvement; log it and rethink.

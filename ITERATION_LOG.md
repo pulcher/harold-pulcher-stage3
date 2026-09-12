@@ -22,3 +22,12 @@ Evaluation-Driven Development log for the repo-sync prompt (`prompts/repo-sync.m
     - FAIL: up-to-date repo -> no-op. The model said "nothing strictly needs to change" but then proposed verification commands anyway ("to be safe and thorough, I'd still verify freshness"), which tripped the no-mutation rule.
     - FAIL: dirty tree. The model opened with a caveat about tool execution being restricted in the session before proposing its plan — the unprompted session commentary pushed the answer off-spec.
 - **Reasoning:** The v1 prompt is intentionally under-specified — it doesn't say what to do for each state, how to handle a dirty tree, or what output shape to use. The two failures show the default behaviors that emerge: (1) the model treats "verify freshness" as free extra work when the correct answer is "change nothing," and (2) it narrates session limitations instead of answering the question as posed. Both are addressable with explicit instruction in the prompt.
+
+## Iteration 2: Swap provider to SWE-2 High
+
+- **Baseline:** 2/4 passed (50%) on Claude Sonnet 5 — clone and pull pass; up-to-date and dirty-tree scenarios fail.
+- **Hypothesis:** A different model may handle the two failing scenarios differently — either confirming the failures are prompt weaknesses (reproduced across models) or showing they're model-specific behavior.
+- **Change made:** Changed the provider in `promptfooconfig.yaml` to `model: 'swe-2-high'` (label: SWE-2 High). No prompt or assertion changes.
+- **Measured results:** <fill in — pass rate, per-metric scores, which tests passed/failed>
+- **Reasoning:** <did the same scenarios fail? if yes, the prompt needs explicit instruction; if no, note model-specifictendencies>
+- 

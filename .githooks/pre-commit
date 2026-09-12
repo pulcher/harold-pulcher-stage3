@@ -1,0 +1,11 @@
+#!/bin/sh
+# Enforce the EDD rule: eval inputs and the iteration log move together.
+changed=$(git diff --cached --name-only)
+
+if echo "$changed" | grep -qE '^(prompts/|assertions/|promptfooconfig\.yaml|devin\.js)$' \
+   && ! echo "$changed" | grep -q '^ITERATION_LOG\.md$'; then
+  echo "ERROR: eval inputs changed but ITERATION_LOG.md was not updated."
+  echo "Every prompt/config/assertion change is an iteration and must be logged."
+  echo "Bypass only for non-behavioral edits: git commit --no-verify"
+  exit 1
+fi

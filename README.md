@@ -27,3 +27,5 @@ npx promptfoo view              # browse results (or open results.html)
 ## Iterating
 
 Each prompt change is an iteration: record baseline, hypothesis, change, measured results, and reasoning in `ITERATION_LOG.md`. See `.devin/skills/promptfoo-eval/references/iteration-workflow.md` for the loop.
+
+The log is enforced by a pre-commit hook (`.githooks/pre-commit`, installed to `.git/hooks/`): commits that touch `prompts/`, `assertions/`, `promptfooconfig.yaml`, or `devin.js` without also updating `ITERATION_LOG.md` are rejected. On a fresh clone, reinstall with `git config core.hooksPath .githooks`.

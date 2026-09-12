@@ -11,11 +11,10 @@ providers:
     config:
       model: 'swe-2-high'
 
-  # Add a second provider to check generalization:
-  # - id: 'exec: node ./devin.js'
-  #   label: 'Claude Haiku 4.5'
-  #   config:
-  #     model: 'claude-haiku-4.5'
+  - id: 'exec: node ./devin.js'
+    label: 'Claude Haiku 4.5'
+    config:
+      model: 'claude-haiku-4.5'
 
 defaultTest:
   assert:

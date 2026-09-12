@@ -28,6 +28,18 @@ Evaluation-Driven Development log for the repo-sync prompt (`prompts/repo-sync.m
 - **Baseline:** 2/4 passed (50%) on Claude Sonnet 5 — clone and pull pass; up-to-date and dirty-tree scenarios fail.
 - **Hypothesis:** A different model may handle the two failing scenarios differently — either confirming the failures are prompt weaknesses (reproduced across models) or showing they're model-specific behavior.
 - **Change made:** Changed the provider in `promptfooconfig.yaml` to `model: 'swe-2-high'` (label: SWE-2 High). No prompt or assertion changes.
-- **Measured results:** <fill in — pass rate, per-metric scores, which tests passed/failed>
-- **Reasoning:** <did the same scenarios fail? if yes, the prompt needs explicit instruction; if no, note model-specifictendencies>
-- 
+- **Measured results:** SWE-2 High column of the combined run (`eval-d4P-2026-09-12T21:26:24`): **2/4 passed (50%)**.
+  - PASS: stale repo -> pull (fast-forward plan, scoped commands); dirty tree -> pull (acknowledged uncommitted changes, proposed stash-then-pull).
+  - FAIL: missing repo -> clone. The model described cloning ("this is a fresh clone, not a pull... clone the repo into it") but did not emit a literal `git clone <url> <path>` command, so Commands failed.
+  - FAIL: up-to-date repo -> no-op. Same failure mode as Sonnet: "verify state first, then fetch and fast-forward pull" — proposed mutating commands despite up-to-date state.
+- **Reasoning:** The no-op failure reproduces on a second model, strengthening the case that it is a prompt weakness, not a model quirk. The new clone failure suggests the prompt should require an explicit command line, not just a described plan.
+
+## Iteration 3: Add Claude Haiku 4.5 as a second provider
+
+- **Baseline:** Iteration 2 results on SWE-2 High (single provider): 2/4.
+- **Hypothesis:** Running the same prompt against a smaller, faster model (Haiku 4.5) alongside SWE-2 High will show whether failures are prompt weaknesses (fail on both) or model-specific behavior.
+- **Change made:** Added a second provider in `promptfooconfig.yaml`: `model: 'claude-haiku-4.5'` (label: Claude Haiku 4.5). No prompt or assertion changes. Eval now runs 4 tests x 2 providers = 8 outputs.
+- **Measured results:** Combined run: **3/8 passed (37.5%)**, 0 errors.
+  - Haiku 4.5 column: 1/4 — PASS on stale repo -> pull only. FAIL on clone (same missing `git clone` command issue as SWE-2), FAIL on no-op (proposed fetch/prune anyway), FAIL on dirty tree.
+  - SWE-2 High column: 2/4 — as recorded in Iteration 2.
+- **Reasoning:** Hypothesis confirmed on both axes. No-op fails on all three models tried (Sonnet 5, SWE-2 High, Haiku 4.5) — definitively a prompt weakness: the prompt never says "no action" is a valid answer or forbids extra commands. The clone failure is shared too — the prompt asks to "list the commands" but doesn't require an executable `git clone <url>` line. Dirty tree fails only on Haiku, consistent with a smaller model needing more explicit safety instruction. Next iteration should make the prompt explicit: a defined action per state, an executable command requirement, and a "change nothing" branch.

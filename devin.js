@@ -12,6 +12,9 @@
 // The model is taken from options.config.model, falling back to a default.
 
 const { spawnSync } = require('child_process');
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
 
 const DEFAULT_MODEL = 'claude-sonnet-5';
 const prompt = process.argv[2];
@@ -37,10 +40,14 @@ function resolveText(rawPrompt) {
   return rawPrompt;
 }
 
+// Run in an empty temp dir so the agent has no real repo to inspect —
+// the scenario's Local state must be authoritative.
+const workDir = fs.mkdtempSync(path.join(os.tmpdir(), 'promptfoo-devin-'));
+
 const result = spawnSync(
   'devin',
   ['-p', '--permission-mode', 'auto', '--model', resolveModel(), '--', resolveText(prompt)],
-  { encoding: 'utf8' }
+  { encoding: 'utf8', cwd: workDir }
 );
 
 if (result.error) {

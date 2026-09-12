@@ -29,5 +29,5 @@ Self-audit of this submission against the three required artifacts.
 
 ## Submission
 
-- [ ] Zip as `firstName-lastName-stage3.zip`
-- [ ] Upload to the Stage 3 Certification Requests form
+- [x] Zip as `firstName-lastName-stage3.zip`
+- [x] Upload to the Stage 3 Certification Requests form

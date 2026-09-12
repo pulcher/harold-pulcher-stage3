@@ -659,9 +659,9 @@
             Stage 3 Certification - repository sync prompt eval
           </h1>
           <ul class="meta-list" aria-label="Report metadata">
-            <li>Exported 2026-09-12T22:06:45.316Z</li>
+            <li>Exported 2026-09-12T22:03:32.791Z</li>
             
-            <li>Evaluated 2026-09-12T22:06:09.705Z</li>
+            <li>Evaluated 2026-09-12T22:03:17.439Z</li>
              
           </ul>
         </div>
@@ -803,7 +803,7 @@ You keep local copies of gi...</th>
                 <td
                   data-output-cell="true"
                   data-status="pass"
-                  data-search="PASS 1.00 **Action: Clone** — the local path does not exist, so the repo needs to be cloned.
+                  data-search="PASS 1.00 **Action: Clone** — no directory exists at `C:/repos/widgets`, so the repo has never been cloned.
 
 ```
 git clone https://github.com/acme/widgets.git C:/repos/widgets
@@ -831,7 +831,7 @@ git clone https://github.com/acme/widgets.git C:/repos/widgets
                     </div>
                     <div class="output-section">
                       <span class="output-section-label">Output</span>
-                      <div class="output-text">**Action: Clone** — the local path does not exist, so the repo needs to be cloned.
+                      <div class="output-text">**Action: Clone** — no directory exists at `C:/repos/widgets`, so the repo has never been cloned.
 
 ```
 git clone https://github.com/acme/widgets.git C:/repos/widgets
@@ -859,11 +859,15 @@ git clone https://github.com/acme/widgets.git C:/repos/widgets
                 <td
                   data-output-cell="true"
                   data-status="pass"
-                  data-search="PASS 1.00 Based on the local state provided, the repository has not been cloned yet (no directory exists at the local path).
+                  data-search="PASS 1.00 Based on the provided information:
 
-**Action: Clone the repository**
+- **Remote URL**: `https://github.com/acme/widgets.git`
+- **Local path**: `C:/repos/widgets`
+- **Local state**: No directory exists at the local path; the repo has never been cloned.
 
-```
+**Action**: Clone the repository.
+
+```bash
 git clone https://github.com/acme/widgets.git C:/repos/widgets
 ``` All assertions passed "
                 >
@@ -889,11 +893,15 @@ git clone https://github.com/acme/widgets.git C:/repos/widgets
                     </div>
                     <div class="output-section">
                       <span class="output-section-label">Output</span>
-                      <div class="output-text">Based on the local state provided, the repository has not been cloned yet (no directory exists at the local path).
+                      <div class="output-text">Based on the provided information:
 
-**Action: Clone the repository**
+- **Remote URL**: `https://github.com/acme/widgets.git`
+- **Local path**: `C:/repos/widgets`
+- **Local state**: No directory exists at the local path; the repo has never been cloned.
 
-```
+**Action**: Clone the repository.
+
+```bash
 git clone https://github.com/acme/widgets.git C:/repos/widgets
 ```</div>
                     </div>
@@ -965,7 +973,7 @@ git clone https://github.com/acme/widgets.git C:/repos/widgets
                 <td
                   data-output-cell="true"
                   data-status="pass"
-                  data-search="PASS 1.00 **Action: Pull** — the local clone exists on main, is clean, and is 4 commits behind origin/main, so pull the updates.
+                  data-search="PASS 1.00 **Action: pull** — the local clone exists, is clean, and is 4 commits behind origin/main, so pull the updates. Since there are no uncommitted changes, no stash is needed.
 
 ```
 git -C C:/repos/widgets pull
@@ -993,7 +1001,7 @@ git -C C:/repos/widgets pull
                     </div>
                     <div class="output-section">
                       <span class="output-section-label">Output</span>
-                      <div class="output-text">**Action: Pull** — the local clone exists on main, is clean, and is 4 commits behind origin/main, so pull the updates.
+                      <div class="output-text">**Action: pull** — the local clone exists, is clean, and is 4 commits behind origin/main, so pull the updates. Since there are no uncommitted changes, no stash is needed.
 
 ```
 git -C C:/repos/widgets pull
@@ -1025,7 +1033,7 @@ git -C C:/repos/widgets pull
 
 The correct action is to pull the updates:
 
-```
+```bash
 git -C C:/repos/widgets pull
 ``` All assertions passed "
                 >
@@ -1055,7 +1063,7 @@ git -C C:/repos/widgets pull
 
 The correct action is to pull the updates:
 
-```
+```bash
 git -C C:/repos/widgets pull
 ```</div>
                     </div>
@@ -1127,7 +1135,7 @@ git -C C:/repos/widgets pull
                 <td
                   data-output-cell="true"
                   data-status="pass"
-                  data-search="PASS 1.00 The repository at `C:/repos/widgets` is already up to date — it&#39;s a clean clone on main and in sync with origin/main. No action needed; run no commands. All assertions passed "
+                  data-search="PASS 1.00 The repo is already up to date. Local path `C:/repos/widgets` exists, is a clean clone on `main`, and is up to date with `origin/main` — change nothing, run no commands. All assertions passed "
                 >
                   <div class="cell-content output-cell">
                     <div class="output-meta">
@@ -1151,7 +1159,7 @@ git -C C:/repos/widgets pull
                     </div>
                     <div class="output-section">
                       <span class="output-section-label">Output</span>
-                      <div class="output-text">The repository at `C:/repos/widgets` is already up to date — it&#39;s a clean clone on main and in sync with origin/main. No action needed; run no commands.</div>
+                      <div class="output-text">The repo is already up to date. Local path `C:/repos/widgets` exists, is a clean clone on `main`, and is up to date with `origin/main` — change nothing, run no commands.</div>
                     </div>
                     
                     <div class="output-section">
@@ -1175,7 +1183,9 @@ git -C C:/repos/widgets pull
                 <td
                   data-output-cell="true"
                   data-status="pass"
-                  data-search="PASS 1.00 The repo is already up to date. No commands need to be run. All assertions passed "
+                  data-search="PASS 1.00 Based on the local state you&#39;ve provided, the repository is already up to date with the remote.
+
+The repo at `C:/repos/widgets` is a clean clone on main, and `git status` reports the local branch is up to date with origin/main. No action is needed. All assertions passed "
                 >
                   <div class="cell-content output-cell">
                     <div class="output-meta">
@@ -1199,7 +1209,9 @@ git -C C:/repos/widgets pull
                     </div>
                     <div class="output-section">
                       <span class="output-section-label">Output</span>
-                      <div class="output-text">The repo is already up to date. No commands need to be run.</div>
+                      <div class="output-text">Based on the local state you&#39;ve provided, the repository is already up to date with the remote.
+
+The repo at `C:/repos/widgets` is a clean clone on main, and `git status` reports the local branch is up to date with origin/main. No action is needed.</div>
                     </div>
                     
                     <div class="output-section">
@@ -1269,15 +1281,17 @@ git -C C:/repos/widgets pull
                 <td
                   data-output-cell="true"
                   data-status="pass"
-                  data-search="PASS 1.00 **Action: Behind remote — pull the updates.** The repo is on `main`, 2 commits behind `origin/main`, and has uncommitted changes to tracked files, so I&#39;ll stash the local work, pull, then restore the stash — no local work is discarded.
+                  data-search="PASS 1.00 **Action: Behind remote with uncommitted changes — stash, pull, then restore the stash.**
 
-```
-git -C C:/repos/widgets stash push -m &quot;auto-stash before pull&quot;
+The repo is already cloned but 2 commits behind `origin/main`, and it has uncommitted local work. Stash the changes first (never discard), pull, then re-apply them.
+
+```bash
+git -C C:/repos/widgets stash push -m &quot;local changes before pull&quot;
 git -C C:/repos/widgets pull
 git -C C:/repos/widgets stash pop
 ```
 
-If `stash pop` produces merge conflicts, resolve them in the affected files; the stash entry is kept in that case, so the local changes remain recoverable. All assertions passed "
+If the `stash pop` produces conflicts, resolve them in the affected files — the stashed work is preserved either way. All assertions passed "
                 >
                   <div class="cell-content output-cell">
                     <div class="output-meta">
@@ -1301,15 +1315,17 @@ If `stash pop` produces merge conflicts, resolve them in the affected files; the
                     </div>
                     <div class="output-section">
                       <span class="output-section-label">Output</span>
-                      <div class="output-text">**Action: Behind remote — pull the updates.** The repo is on `main`, 2 commits behind `origin/main`, and has uncommitted changes to tracked files, so I&#39;ll stash the local work, pull, then restore the stash — no local work is discarded.
+                      <div class="output-text">**Action: Behind remote with uncommitted changes — stash, pull, then restore the stash.**
 
-```
-git -C C:/repos/widgets stash push -m &quot;auto-stash before pull&quot;
+The repo is already cloned but 2 commits behind `origin/main`, and it has uncommitted local work. Stash the changes first (never discard), pull, then re-apply them.
+
+```bash
+git -C C:/repos/widgets stash push -m &quot;local changes before pull&quot;
 git -C C:/repos/widgets pull
 git -C C:/repos/widgets stash pop
 ```
 
-If `stash pop` produces merge conflicts, resolve them in the affected files; the stash entry is kept in that case, so the local changes remain recoverable.</div>
+If the `stash pop` produces conflicts, resolve them in the affected files — the stashed work is preserved either way.</div>
                     </div>
                     
                     <div class="output-section">
@@ -1335,18 +1351,21 @@ If `stash pop` produces merge conflicts, resolve them in the affected files; the
                   data-status="pass"
                   data-search="PASS 1.00 Based on the local state you&#39;ve described, the repository is **behind remote** with uncommitted local changes to tracked files.
 
-**Action:** Stash the uncommitted changes, then pull the updates from the remote.
+The correct action is to stash the local changes, pull the updates, and then restore the changes.
 
 ```bash
 cd C:/repos/widgets
 git stash
 git pull
+git stash pop
 ```
 
-This approach:
-1. Safely preserves your local changes in the stash
+This sequence:
+1. Stashes the uncommitted changes to a safe location
 2. Pulls the 2 commits from origin/main
-3. Allows you to reapply your changes afterward with `git stash pop` if needed All assertions passed "
+3. Restores your local changes on top of the updated code
+
+If there are merge conflicts when applying the stash, you&#39;ll need to resolve them manually before the process is complete. All assertions passed "
                 >
                   <div class="cell-content output-cell">
                     <div class="output-meta">
@@ -1372,18 +1391,21 @@ This approach:
                       <span class="output-section-label">Output</span>
                       <div class="output-text">Based on the local state you&#39;ve described, the repository is **behind remote** with uncommitted local changes to tracked files.
 
-**Action:** Stash the uncommitted changes, then pull the updates from the remote.
+The correct action is to stash the local changes, pull the updates, and then restore the changes.
 
 ```bash
 cd C:/repos/widgets
 git stash
 git pull
+git stash pop
 ```
 
-This approach:
-1. Safely preserves your local changes in the stash
+This sequence:
+1. Stashes the uncommitted changes to a safe location
 2. Pulls the 2 commits from origin/main
-3. Allows you to reapply your changes afterward with `git stash pop` if needed</div>
+3. Restores your local changes on top of the updated code
+
+If there are merge conflicts when applying the stash, you&#39;ll need to resolve them manually before the process is complete.</div>
                     </div>
                     
                     <div class="output-section">
@@ -1475,7 +1497,7 @@ This approach:
            
           <div class="detail-metric">
             <span class="detail-metric-label">Latency</span>
-            <span class="detail-metric-value">4984 ms</span>
+            <span class="detail-metric-value">7212 ms</span>
           </div>
             
           <div class="detail-metric">
@@ -1524,7 +1546,7 @@ Decide the correct action from the local state, then state that action and the e
 
         <section class="detail-section">
           <span class="detail-section-title">Output</span>
-          <p class="detail-copy">**Action: Clone** — the local path does not exist, so the repo needs to be cloned.
+          <p class="detail-copy">**Action: Clone** — no directory exists at `C:/repos/widgets`, so the repo has never been cloned.
 
 ```
 git clone https://github.com/acme/widgets.git C:/repos/widgets
@@ -1593,7 +1615,7 @@ git clone https://github.com/acme/widgets.git C:/repos/widgets
            
           <div class="detail-metric">
             <span class="detail-metric-label">Latency</span>
-            <span class="detail-metric-value">1859 ms</span>
+            <span class="detail-metric-value">2234 ms</span>
           </div>
             
           <div class="detail-metric">
@@ -1642,11 +1664,15 @@ Decide the correct action from the local state, then state that action and the e
 
         <section class="detail-section">
           <span class="detail-section-title">Output</span>
-          <p class="detail-copy">Based on the local state provided, the repository has not been cloned yet (no directory exists at the local path).
+          <p class="detail-copy">Based on the provided information:
 
-**Action: Clone the repository**
+- **Remote URL**: `https://github.com/acme/widgets.git`
+- **Local path**: `C:/repos/widgets`
+- **Local state**: No directory exists at the local path; the repo has never been cloned.
 
-```
+**Action**: Clone the repository.
+
+```bash
 git clone https://github.com/acme/widgets.git C:/repos/widgets
 ```</p>
         </section>
@@ -1713,7 +1739,7 @@ git clone https://github.com/acme/widgets.git C:/repos/widgets
            
           <div class="detail-metric">
             <span class="detail-metric-label">Latency</span>
-            <span class="detail-metric-value">35412 ms</span>
+            <span class="detail-metric-value">5403 ms</span>
           </div>
             
           <div class="detail-metric">
@@ -1762,7 +1788,7 @@ Decide the correct action from the local state, then state that action and the e
 
         <section class="detail-section">
           <span class="detail-section-title">Output</span>
-          <p class="detail-copy">**Action: Pull** — the local clone exists on main, is clean, and is 4 commits behind origin/main, so pull the updates.
+          <p class="detail-copy">**Action: pull** — the local clone exists, is clean, and is 4 commits behind origin/main, so pull the updates. Since there are no uncommitted changes, no stash is needed.
 
 ```
 git -C C:/repos/widgets pull
@@ -1831,7 +1857,7 @@ git -C C:/repos/widgets pull
            
           <div class="detail-metric">
             <span class="detail-metric-label">Latency</span>
-            <span class="detail-metric-value">1943 ms</span>
+            <span class="detail-metric-value">2875 ms</span>
           </div>
             
           <div class="detail-metric">
@@ -1884,7 +1910,7 @@ Decide the correct action from the local state, then state that action and the e
 
 The correct action is to pull the updates:
 
-```
+```bash
 git -C C:/repos/widgets pull
 ```</p>
         </section>
@@ -1951,7 +1977,7 @@ git -C C:/repos/widgets pull
            
           <div class="detail-metric">
             <span class="detail-metric-label">Latency</span>
-            <span class="detail-metric-value">11403 ms</span>
+            <span class="detail-metric-value">6867 ms</span>
           </div>
             
           <div class="detail-metric">
@@ -2000,7 +2026,7 @@ Decide the correct action from the local state, then state that action and the e
 
         <section class="detail-section">
           <span class="detail-section-title">Output</span>
-          <p class="detail-copy">The repository at `C:/repos/widgets` is already up to date — it&#39;s a clean clone on main and in sync with origin/main. No action needed; run no commands.</p>
+          <p class="detail-copy">The repo is already up to date. Local path `C:/repos/widgets` exists, is a clean clone on `main`, and is up to date with `origin/main` — change nothing, run no commands.</p>
         </section>
 
         
@@ -2065,7 +2091,7 @@ Decide the correct action from the local state, then state that action and the e
            
           <div class="detail-metric">
             <span class="detail-metric-label">Latency</span>
-            <span class="detail-metric-value">1482 ms</span>
+            <span class="detail-metric-value">1733 ms</span>
           </div>
             
           <div class="detail-metric">
@@ -2114,7 +2140,9 @@ Decide the correct action from the local state, then state that action and the e
 
         <section class="detail-section">
           <span class="detail-section-title">Output</span>
-          <p class="detail-copy">The repo is already up to date. No commands need to be run.</p>
+          <p class="detail-copy">Based on the local state you&#39;ve provided, the repository is already up to date with the remote.
+
+The repo at `C:/repos/widgets` is a clean clone on main, and `git status` reports the local branch is up to date with origin/main. No action is needed.</p>
         </section>
 
         
@@ -2179,7 +2207,7 @@ Decide the correct action from the local state, then state that action and the e
            
           <div class="detail-metric">
             <span class="detail-metric-label">Latency</span>
-            <span class="detail-metric-value">6590 ms</span>
+            <span class="detail-metric-value">10460 ms</span>
           </div>
             
           <div class="detail-metric">
@@ -2228,15 +2256,17 @@ Decide the correct action from the local state, then state that action and the e
 
         <section class="detail-section">
           <span class="detail-section-title">Output</span>
-          <p class="detail-copy">**Action: Behind remote — pull the updates.** The repo is on `main`, 2 commits behind `origin/main`, and has uncommitted changes to tracked files, so I&#39;ll stash the local work, pull, then restore the stash — no local work is discarded.
+          <p class="detail-copy">**Action: Behind remote with uncommitted changes — stash, pull, then restore the stash.**
 
-```
-git -C C:/repos/widgets stash push -m &quot;auto-stash before pull&quot;
+The repo is already cloned but 2 commits behind `origin/main`, and it has uncommitted local work. Stash the changes first (never discard), pull, then re-apply them.
+
+```bash
+git -C C:/repos/widgets stash push -m &quot;local changes before pull&quot;
 git -C C:/repos/widgets pull
 git -C C:/repos/widgets stash pop
 ```
 
-If `stash pop` produces merge conflicts, resolve them in the affected files; the stash entry is kept in that case, so the local changes remain recoverable.</p>
+If the `stash pop` produces conflicts, resolve them in the affected files — the stashed work is preserved either way.</p>
         </section>
 
         
@@ -2301,7 +2331,7 @@ If `stash pop` produces merge conflicts, resolve them in the affected files; the
            
           <div class="detail-metric">
             <span class="detail-metric-label">Latency</span>
-            <span class="detail-metric-value">2435 ms</span>
+            <span class="detail-metric-value">4394 ms</span>
           </div>
             
           <div class="detail-metric">
@@ -2352,18 +2382,21 @@ Decide the correct action from the local state, then state that action and the e
           <span class="detail-section-title">Output</span>
           <p class="detail-copy">Based on the local state you&#39;ve described, the repository is **behind remote** with uncommitted local changes to tracked files.
 
-**Action:** Stash the uncommitted changes, then pull the updates from the remote.
+The correct action is to stash the local changes, pull the updates, and then restore the changes.
 
 ```bash
 cd C:/repos/widgets
 git stash
 git pull
+git stash pop
 ```
 
-This approach:
-1. Safely preserves your local changes in the stash
+This sequence:
+1. Stashes the uncommitted changes to a safe location
 2. Pulls the 2 commits from origin/main
-3. Allows you to reapply your changes afterward with `git stash pop` if needed</p>
+3. Restores your local changes on top of the updated code
+
+If there are merge conflicts when applying the stash, you&#39;ll need to resolve them manually before the process is complete.</p>
         </section>
 
         

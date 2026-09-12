@@ -12,6 +12,7 @@ Evaluation-Driven Development log for the repo-sync prompt (`prompts/repo-sync.m
 | 4 | v2 prompt: explicit actions, executable commands, no-op branch | SWE-2 High + Haiku 4.5 | 5/8 (62.5%) |
 | 5 | Harness fix: sandbox provider cwd (temp dir) | SWE-2 High + Haiku 4.5 | 8/8 (100%) |
 | 6 | Prompt rule: Local state is authoritative | SWE-2 High + Haiku 4.5 | 8/8 (100%) |
+| 7 | Add eval.ps1 wrapper archiving runs to results/ | SWE-2 High + Haiku 4.5 | 8/8 (100%) |
 
 ## Iteration 1: Build the prompt and evaluation harness
 
@@ -82,3 +83,11 @@ Evaluation-Driven Development log for the repo-sync prompt (`prompts/repo-sync.m
 - **Change made:** Added a closing rule to `## Output` in `prompts/repo-sync.md`: "Treat the `Local state` above as authoritative. Do not inspect the environment, run commands, or reason about any repository on the actual filesystem — answer from the described state only." No config or assertion changes.
 - **Measured results:** `npx promptfoo eval --no-cache` (eval-kFc-2026-09-12T21:49:42): **8/8 passed (100%)**, 0 errors — no regressions on either provider.
 - **Reasoning:** Hypothesis confirmed. The rule adds defense-in-depth: behavior now depends on explicit instruction, not only on the sandboxed cwd. Both layers are cheap and complementary — the sandbox guarantees clean signal, the instruction documents the contract inside the prompt artifact itself.
+
+## Iteration 7: Archive each eval run (harness/tooling)
+
+- **Baseline:** 8/8 (100%), but `results.html` is overwritten each run — earlier runs were unrecoverable, weakening the evidence behind the log.
+- **Hypothesis:** A wrapper script that runs the eval and copies `results.html` to `results/results-<timestamp>.html` gives every iteration committed run evidence without changing eval behavior.
+- **Change made:** Added `scripts/eval.ps1` (runs `npx promptfoo eval --no-cache`, archives output to `results/`, prints a log-update reminder). Updated README run instructions. No prompt, config, or assertion changes.
+- **Measured results:** `.\scripts\eval.ps1` (eval-xCg-2026-09-12T22:06:09): **8/8 passed (100%)**, 0 errors — no behavioral change, as expected for a tooling-only iteration. Run archived to `results/results-20260912-170645.html`.
+- **Reasoning:** Hypothesis confirmed — the wrapper is behavior-neutral and now produces committed per-run evidence. Combined with the pre-commit hook, the loop is self-enforcing: every eval run leaves an archived artifact, and every eval-input change requires a log entry.

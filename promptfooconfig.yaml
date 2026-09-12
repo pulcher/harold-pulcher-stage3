@@ -7,9 +7,9 @@ prompts:
 
 providers:
   - id: 'exec: node ./devin.js'
-    label: 'Claude Sonnet 5'
+    label: 'SWE-2 High'
     config:
-      model: 'claude-sonnet-5'
+      model: 'swe-2-high'
 
   # Add a second provider to check generalization:
   # - id: 'exec: node ./devin.js'
